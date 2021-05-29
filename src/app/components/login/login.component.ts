@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {FormControl, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -6,10 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
-  constructor() { }
+  hidePasswordFlag: boolean;
+  constructor() {
+    this.hidePasswordFlag = true;
+   }
 
   ngOnInit(): void {
+  }
+
+  onSubmit(){
+    console.log("Hello");
   }
 
 }

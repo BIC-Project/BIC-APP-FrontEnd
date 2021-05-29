@@ -18,3 +18,11 @@
 .example-spacer {
   flex: 1 1 auto;
 }
+
+.img-responsive {
+  max-width: 70px;
+  display: inline;
+  height: 40px;
+  align-items: center;
+  justify-content: baseline;
+}

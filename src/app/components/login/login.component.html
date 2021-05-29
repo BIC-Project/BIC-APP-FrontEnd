@@ -1,1 +1,44 @@
-<p>login works!</p>
+<div class="bootstrap-wrapper">
+    <div class="container mt text-center">
+        <div class="row">
+            <div class="col-sm-6  offset-sm-3">
+                <mat-card>
+                    <div class="mat-display-4 mb1">
+                        <mat-icon [inline]="true" color="primary" aria-hidden="false" aria-label="account_circle">
+                            account_circle
+                        </mat-icon>
+                        <div class="mat-display-2 mb1">
+                            Login
+                        </div>
+                    </div>
+                    <hr>
+                    <form (ngSubmit)="onSubmit()" class="text-center mt">
+                        <mat-form-field appearance="outline" class="full-width">
+                            <mat-label>Enter Your Username</mat-label>
+                            <input matInput type="text" required />
+                            <!-- <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error> -->
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="full-width">
+                            <mat-label>Enter Your Password</mat-label>
+                            <input matInput [type]="hidePasswordFlag ? 'password' : 'text'" required>
+                            <button mat-icon-button matSuffix (click)="hidePasswordFlag = !hidePasswordFlag"
+                                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePasswordFlag">
+                                <mat-icon>{{hidePasswordFlag ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                        </mat-form-field>
+                        <button mat-raised-button color="primary" class="m1" type="submit">
+                            <mat-icon aria-hidden="false" aria-label="login">login</mat-icon>
+                            Login
+                        </button>
+                        <button mat-raised-button color="warn" class="m1" type="reset">
+                            <mat-icon aria-hidden="false" aria-label="restart_alt">restart_alt</mat-icon>
+                            Reset
+                        </button>
+                    </form>
+
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>

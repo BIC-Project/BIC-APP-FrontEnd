@@ -14,25 +14,37 @@ import { MatListModule } from '@angular/material/list';
 import { LoginComponent } from './components/login/login.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { AboutComponent } from './components/about/about.component';
-
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import {MatCardModule} from '@angular/material/card';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     LoginComponent,
     ContactComponent,
-    AboutComponent
+    AboutComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     BrowserAnimationsModule,
     LayoutModule,
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatGridListModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
