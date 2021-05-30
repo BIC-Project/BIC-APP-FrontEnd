@@ -1,8 +1,9 @@
 <div class="bootstrap-wrapper">
     <div class="container mt text-center">
         <div class="row">
-            <div class="col-sm-6  offset-sm-3">
+            <div class="col-lg-6  offset-lg-3">
                 <mat-card>
+                    <!-- Title -->
                     <div class="mat-display-4 mb1">
                         <mat-icon [inline]="true" color="primary" aria-hidden="false" aria-label="account_circle">
                             account_circle
@@ -12,29 +13,69 @@
                         </div>
                     </div>
                     <hr>
-                    <form (ngSubmit)="onSubmit()" class="text-center mt">
-                        <mat-form-field appearance="outline" class="full-width">
-                            <mat-label>Enter Your Username</mat-label>
-                            <input matInput type="text" required />
-                            <!-- <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error> -->
-                        </mat-form-field>
 
-                        <mat-form-field appearance="outline" class="full-width">
-                            <mat-label>Enter Your Password</mat-label>
-                            <input matInput [type]="hidePasswordFlag ? 'password' : 'text'" required>
-                            <button mat-icon-button matSuffix (click)="hidePasswordFlag = !hidePasswordFlag"
-                                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePasswordFlag">
-                                <mat-icon>{{hidePasswordFlag ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    <!-- Loading -->
+                    <div class="center">
+                        <mat-spinner *ngIf="isLoadingFlag" color="primary"></mat-spinner>
+                    </div>
+                    <!-- Login Form -->
+                    <form #loginFormMarker="ngForm" [formGroup]="loginForm" (ngSubmit)="onSubmit(loginFormMarker)"
+                        class="text-center mt" *ngIf="!isLoadingFlag">
+
+                        <!-- Username -->
+                        <div class="form-group">
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label for="userName">Enter Your Username</mat-label>
+                                <input matInput type="text" id="userName" formControlName="userName"
+                                    class="form-control" required />
+                            </mat-form-field>
+                            <span *ngIf="!loginForm.get('userName').valid && loginForm.get('userName').touched">
+                                <ul>
+                                    <mat-error class="text-left">
+                                        <li *ngFor="let errorMsg of getValidationErrorMessage('userName')">{{errorMsg}}
+                                        </li>
+                                    </mat-error>
+                                </ul>
+                            </span>
+                        </div>
+
+                        <!-- Password -->
+                        <div class="form-group">
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label for="password">Enter Your Password</mat-label>
+                                <input matInput [type]="hidePasswordFlag ? 'password' : 'text'" id="password"
+                                    formControlName="password" class="form-control" required />
+
+                                <!-- Toggle Button -->
+                                <button type="button" mat-icon-button matSuffix
+                                    (click)="hidePasswordFlag = !hidePasswordFlag" [attr.aria-label]="'Hide password'"
+                                    [attr.aria-pressed]="hidePasswordFlag">
+                                    <mat-icon>{{hidePasswordFlag ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                </button>
+                            </mat-form-field>
+                            <span *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched">
+                                <ul>
+                                    <mat-error class="text-left">
+                                        <li *ngFor="let errorMsg of getValidationErrorMessage('password')">{{errorMsg}}
+                                        </li>
+                                    </mat-error>
+                                </ul>
+                            </span>
+                        </div>
+
+                        <!-- Buttons -->
+                        <div>
+                            <button mat-raised-button color="primary" class="m1" type="submit"
+                                [disabled]="!loginForm.valid">
+                                <mat-icon aria-hidden="false" aria-label="login">login</mat-icon>
+                                Login
                             </button>
-                        </mat-form-field>
-                        <button mat-raised-button color="primary" class="m1" type="submit">
-                            <mat-icon aria-hidden="false" aria-label="login">login</mat-icon>
-                            Login
-                        </button>
-                        <button mat-raised-button color="warn" class="m1" type="reset">
-                            <mat-icon aria-hidden="false" aria-label="restart_alt">restart_alt</mat-icon>
-                            Reset
-                        </button>
+                            <button mat-raised-button color="warn" class="m1" type="reset">
+                                <mat-icon aria-hidden="false" aria-label="restart_alt">restart_alt</mat-icon>
+                                Reset
+                            </button>
+                        </div>
+
                     </form>
 
                 </mat-card>

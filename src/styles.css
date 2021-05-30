@@ -15,9 +15,24 @@ body {
 }
 
 .mt {
-  margin-top: 4%;
+  margin-top: 2%;
 }
 
 .pad {
   padding: 10px;
+}
+.mb1 {
+  margin-bottom: 10px !important;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.m1 {
+  margin: 5px !important;
+}
+
+.text-left {
+  text-align: left;
 }
