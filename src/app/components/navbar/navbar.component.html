@@ -15,7 +15,7 @@
         <a mat-list-item routerLink="/home" (click)="drawer.close()">Home</a>
         <a mat-list-item routerLink="/contact" (click)="drawer.close()">Contact</a>
         <a mat-list-item routerLink="/about" (click)="drawer.close()">About</a>
-        <a mat-flat-button routerLink="/logout" (click)="drawer.close()" color="accent" class="full-width">
+        <a mat-stroked-button (click)="drawer.close(); onLogout();" color="primary" class="full-width">
           <mat-icon aria-hidden="false" aria-label="Logout">logout</mat-icon>Logout
         </a>
       </div>
@@ -44,7 +44,7 @@
             <a mat-menu-item routerLink="/contact">Contact</a>
             <a mat-menu-item routerLink="/about">About</a>
           </mat-menu>
-          <a mat-raised-button routerLink="/logout" class="m1" color="accent">Logout</a>
+          <a mat-raised-button (click)="onLogout()" class="m1" color="accent">Logout</a>
         </div>
       </div>
     </mat-toolbar>

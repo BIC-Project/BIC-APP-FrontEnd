@@ -26,7 +26,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   constructor(
     private breakpointObserver: BreakpointObserver,
     private authService: AuthService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.userSub = this.authService.user.subscribe((user) => {
@@ -35,5 +35,13 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy(): void {
     this.userSub.unsubscribe();
+  }
+
+  onLogout() {
+    setTimeout(() => {
+      if (confirm("Do you really want to logout?"))
+        this.authService.logout();
+    }, 340);
+
   }
 }
