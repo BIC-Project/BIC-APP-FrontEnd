@@ -60,16 +60,23 @@ export class AuthService {
 
     //load user which is already present
     if (loadedUser.authTokenExpDate && loadedUser.authToken) {
-      this.user.next(loadedUser);
-      //check if autologout
       const expTime = new Date(userData._authTokenExpDate).getTime() - new Date().getTime();
-      this.autologout(expTime);
+
+      //check if expToken will expire in 2 day. Allow autologin only if exp is in 2 day
+      const expThreshold: number = 48 * 60 * 60 * 1000; //in millisec
+      if (expTime >= expThreshold) {
+        this.user.next(loadedUser);
+        this.autologout(expTime);
+      }
+      // if expiry in 2 day. Dont allow autologin
+      else
+        return;
     }
   }
 
   logout() {
     this.user.next(null);
-    this.router.navigate(['/']);
+    this.router.navigate(['/login']);
     localStorage.removeItem('userData');
     if (this.tokenExpirationTimer) {
       clearTimeout(this.tokenExpirationTimer);
@@ -77,15 +84,16 @@ export class AuthService {
     this.tokenExpirationTimer = null;
   }
 
+  notifyBeforeAutoLogout() {
+
+  }
+
   autologout(expirationDuration: number) {
     this.tokenExpirationTimer = setTimeout(() => {
       this.logout();
       alert("Session has expired! Please login again.")
     }, expirationDuration);
-
   }
-
-
 
   private handleAuthentication(userName: string, authToken: string, expTime: number) {
     const authTokenExpDate = new Date(new Date().getTime() + expTime);
