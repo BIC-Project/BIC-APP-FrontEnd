@@ -12,7 +12,7 @@ export class AuthIntercepterService implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     return this.authService.user.pipe(take(1), exhaustMap(user => {
-      //check for specific URL's which donat need authorization
+      //check for specific URL's which donot need authorization
       if (!user) {
         return next.handle(req);
       }

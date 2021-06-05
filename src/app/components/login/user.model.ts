@@ -2,7 +2,8 @@ export class User {
   constructor(
     public userName: string,
     private _authToken: string,
-    private _authTokenExpDate: Date
+    private _authTokenExpDate: Date,
+    public roles: string
   ) { }
 
   get authToken() {

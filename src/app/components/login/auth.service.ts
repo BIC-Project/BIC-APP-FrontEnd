@@ -4,6 +4,7 @@ import { catchError, tap } from 'rxjs/operators';
 import { BehaviorSubject, throwError } from 'rxjs';
 import { User } from './user.model';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 interface AuthResponseData {
   status: string;
@@ -24,7 +25,7 @@ export class AuthService {
 
   constructor(private http: HttpClient,
     private router: Router) {
-    this.url = 'http://localhost:8080/login';
+    this.url = environment.baseURL + 'login';
     this.tokenExpirationTimer = null;
   }
 
@@ -40,7 +41,8 @@ export class AuthService {
           this.handleAuthentication(
             respData.userName,
             respData.authToken,
-            respData.expTime
+            respData.expTime,
+            respData.roles
           );
         })
       );
@@ -51,12 +53,13 @@ export class AuthService {
     const userData: {
       userName: string,
       _authToken: string,
-      _authTokenExpDate: string
+      _authTokenExpDate: string,
+      roles: string
     } = JSON.parse(localStorage.getItem('userData'));
     if (!userData || !userData._authToken || !userData.userName || !userData._authTokenExpDate) {
       return;
     }
-    const loadedUser = new User(userData.userName, userData._authToken, new Date(userData._authTokenExpDate));
+    const loadedUser = new User(userData.userName, userData._authToken, new Date(userData._authTokenExpDate), userData.roles);
 
     //load user which is already present
     if (loadedUser.authTokenExpDate && loadedUser.authToken) {
@@ -95,9 +98,9 @@ export class AuthService {
     }, expirationDuration);
   }
 
-  private handleAuthentication(userName: string, authToken: string, expTime: number) {
+  private handleAuthentication(userName: string, authToken: string, expTime: number, roles: string) {
     const authTokenExpDate = new Date(new Date().getTime() + expTime);
-    const user = new User(userName, authToken, authTokenExpDate);
+    const user = new User(userName, authToken, authTokenExpDate, roles);
     this.user.next(user);
     // check if token has expired
     this.autologout(expTime);

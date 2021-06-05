@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { exhaustMap, take } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { AuthService } from '../login/auth.service';
 
 @Component({
@@ -21,7 +22,7 @@ export class HomeComponent implements OnInit {
   }
 
   private getData() {
-    return this.http.get('http://localhost:8080/customer/')
+    return this.http.get(environment.baseURL + 'customer/');
   };
 
 
