@@ -1,5 +1,5 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { catchError, tap } from 'rxjs/operators';
 import { BehaviorSubject, throwError } from 'rxjs';
 import { User } from '../../models/user.model';
@@ -25,7 +25,9 @@ export class AuthService {
   user = new BehaviorSubject<User>(null);
 
   constructor(private http: HttpClient,
-    private router: Router) {
+    private router: Router,
+    private zone: NgZone
+  ) {
     this.url = environment.baseURL + 'login';
     this.tokenExpirationTimer = null;
   }
@@ -80,12 +82,15 @@ export class AuthService {
 
   logout() {
     this.user.next(null);
-    this.router.navigate(['/login']);
     localStorage.removeItem('userData');
     if (this.tokenExpirationTimer) {
       clearTimeout(this.tokenExpirationTimer);
     }
     this.tokenExpirationTimer = null;
+    this.zone.run(() => {
+      this.router.navigate(['/login']);
+    });
+
   }
 
   notifyBeforeAutoLogout() {

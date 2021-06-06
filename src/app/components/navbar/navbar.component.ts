@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import {
   BreakpointObserver,
   Breakpoints,
@@ -8,8 +8,9 @@ import { Observable, Subscription } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
-import { matDrawerAnimations } from '@angular/material/sidenav';
+import { matDrawerAnimations, MatSidenav } from '@angular/material/sidenav';
 import { AuthService } from '../login/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -22,17 +23,19 @@ export class NavbarComponent implements OnInit, OnDestroy {
   mobileQuery: MediaQueryList;
 
   constructor(
-    changeDetectorRef: ChangeDetectorRef,
-    media: MediaMatcher,
+    private changeDetectorRef: ChangeDetectorRef,
+    private media: MediaMatcher,
     private breakpointObserver: BreakpointObserver,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
-    this.mobileQuery = media.matchMedia('(max-width: 600px)');
-    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
-    this.mobileQuery.addListener(this._mobileQueryListener);
+
   }
 
   ngOnInit(): void {
+    this.mobileQuery = this.media.matchMedia('(max-width: 600px)');
+    this._mobileQueryListener = () => this.changeDetectorRef.detectChanges();
+    this.mobileQuery.addListener(this._mobileQueryListener);
     this.isAuthenticatedFlag = false;
     this.userSub = this.authService.user.subscribe((user) => {
       this.isAuthenticatedFlag = !!user;
@@ -44,10 +47,15 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.userSub.unsubscribe();
   }
 
+  closeSideNav(snav: MatSidenav) {
+    if (this.mobileQuery.matches)
+      snav.close();
+
+  }
+
   onLogout() {
-    setTimeout(() => {
-      if (confirm('Do you really want to logout?')) this.authService.logout();
-    }, 340);
+
+    this.authService.logout();
   }
   private _mobileQueryListener: () => void;
 
