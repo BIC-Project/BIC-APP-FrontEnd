@@ -6,6 +6,7 @@ import { HomeComponent } from './components/home/home.component';
 import { AuthGuard } from './components/login/auth.guard';
 import { LoggedinGuard } from './components/login/loggedin.guard';
 import { LoginComponent } from './components/login/login.component';
+import { ReceiptComponent } from './components/receipt/receipt.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "home", pathMatch: 'full' },
@@ -13,6 +14,8 @@ const routes: Routes = [
   { path: "contact", component: ContactComponent },
   { path: "about", component: AboutComponent },
   { path: "home", component: HomeComponent, canActivate: [AuthGuard] },
+  { path: "receipt", component: ReceiptComponent, canActivate: [AuthGuard] },
+
 ];
 
 @NgModule({

@@ -26,6 +26,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { HomeComponent } from './components/home/home.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { AuthIntercepterService } from './components/login/auth-intercepter.service';
+import { ReceiptComponent } from './components/receipt/receipt.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { AuthIntercepterService } from './components/login/auth-intercepter.serv
     ContactComponent,
     AboutComponent,
     HomeComponent,
+    ReceiptComponent,
   ],
   imports: [
     BrowserModule,

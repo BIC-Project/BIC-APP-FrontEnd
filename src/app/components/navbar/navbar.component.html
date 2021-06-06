@@ -1,53 +1,52 @@
-<mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="false">
-    <mat-toolbar>
-      Menu
-    </mat-toolbar>
-    <mat-nav-list>
-      <div *ngIf="!isAuthenticatedFlag">
-        <a mat-list-item routerLink="/login" (click)="drawer.close()">Login</a>
-        <a mat-list-item routerLink="/contact" (click)="drawer.close()">Contact</a>
-        <a mat-list-item routerLink="/about" (click)="drawer.close()">About</a>
-      </div>
+<div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
+  <mat-toolbar color="primary" class="example-toolbar">
+    <button mat-icon-button (click)="snav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <h1 class="example-app-name">Bharat Industrial Corportation</h1>
+    <span class="navlink-spacer"></span>
+    <a mat-raised-button *ngIf="isAuthenticatedFlag && !mobileQuery.matches" (click)="onLogout()" class="m1"
+      color="accent">
+      <mat-icon aria-hidden="false" aria-label="Logout">logout</mat-icon>Logout
+    </a>
+  </mat-toolbar>
 
-      <div *ngIf="isAuthenticatedFlag">
-        <a mat-list-item routerLink="/home" (click)="drawer.close()">Home</a>
-        <a mat-list-item routerLink="/contact" (click)="drawer.close()">Contact</a>
-        <a mat-list-item routerLink="/about" (click)="drawer.close()">About</a>
-        <a mat-stroked-button (click)="drawer.close(); onLogout();" color="primary" class="full-width">
-          <mat-icon aria-hidden="false" aria-label="Logout">logout</mat-icon>Logout
+  <mat-sidenav-container class="example-sidenav-container " [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+    <mat-sidenav class="sidenav" #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
+      [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+      <mat-nav-list>
+        <a mat-list-item routerLink="/login" *ngIf="!isAuthenticatedFlag">
+          <mat-icon aria-hidden="false" aria-label="login">login</mat-icon>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Login
         </a>
-      </div>
-    </mat-nav-list>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <mat-toolbar color="primary">
-      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
-        *ngIf="isHandset$ | async">
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-      </button>
-      <span> Bharat Industrial Corportation</span>
-      <span class="navlink-spacer"></span>
-      <div *ngIf="!(isHandset$ | async)">
-        <div *ngIf="!isAuthenticatedFlag">
-          <a mat-button routerLink="/login">Login</a>
-          <a mat-button routerLink="/contact">Contact</a>
-          <a mat-button routerLink="/about">About</a>
-        </div>
-        <div *ngIf="isAuthenticatedFlag">
-          <button mat-button [matMenuTriggerFor]="menu" class="m1">
-            Menu<mat-icon aria-hidden="false" aria-label="Arrow Dropdown">arrow_drop_down</mat-icon>
-          </button>
-          <mat-menu #menu="matMenu">
-            <a mat-menu-item routerLink="/home">Home</a>
-            <a mat-menu-item routerLink="/contact">Contact</a>
-            <a mat-menu-item routerLink="/about">About</a>
-          </mat-menu>
-          <a mat-raised-button (click)="onLogout()" class="m1" color="accent">Logout</a>
-        </div>
-      </div>
-    </mat-toolbar>
-    <ng-content></ng-content>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+        <a mat-list-item routerLink="/home" *ngIf="isAuthenticatedFlag">
+          <mat-icon aria-hidden="false" aria-label="home">home</mat-icon>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Home
+        </a>
+        <a mat-list-item routerLink="/receipt" *ngIf="isAuthenticatedFlag">
+          <mat-icon aria-hidden="false" aria-label="receipt">receipt_long</mat-icon>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Receipt
+        </a>
+        <a mat-list-item routerLink="/home" *ngIf="isAuthenticatedFlag">
+          <mat-icon aria-hidden="false" aria-label="people_alt">people_alt</mat-icon>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Customer
+        </a>
+
+        <a mat-list-item routerLink="/contact">
+          <mat-icon aria-hidden="false" aria-label="phone">phone</mat-icon> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Contact
+        </a>
+        <a mat-list-item routerLink="/about">
+          <mat-icon aria-hidden="false" aria-label="info">info</mat-icon>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; About
+        </a>
+        <a mat-stroked-button *ngIf="isAuthenticatedFlag && mobileQuery.matches" (click)="onLogout()" color="primary"
+          class="full-width">
+          <mat-icon aria-hidden="false" aria-label="Logout">logout</mat-icon> Logout
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <ng-content></ng-content>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
