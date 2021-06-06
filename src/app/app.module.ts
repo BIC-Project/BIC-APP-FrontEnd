@@ -27,6 +27,7 @@ import { HomeComponent } from './components/home/home.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { AuthIntercepterService } from './components/login/auth-intercepter.service';
 import { ReceiptComponent } from './components/receipt/receipt.component';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { ReceiptComponent } from './components/receipt/receipt.component';
     MatProgressSpinnerModule,
     MatSnackBarModule,
     MatMenuModule,
+    MatTabsModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthIntercepterService, multi: true }],
   bootstrap: [AppComponent],
