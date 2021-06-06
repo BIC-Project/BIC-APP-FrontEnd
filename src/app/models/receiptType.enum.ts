@@ -1,3 +1,3 @@
 export enum ReceiptType {
-    ER, DR
+    ER = 'ER', DR = 'DR'
 }

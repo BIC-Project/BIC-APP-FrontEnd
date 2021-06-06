@@ -1,7 +1,7 @@
 import { GassFamily } from "./gasFamily.model";
 
 export interface Gas {
-    gasId: number;
-    gasName: string;
-    gasFamily: GassFamily;
+    gasId?: string;
+    gasName?: string;
+    gasFamily?: GassFamily;
 }

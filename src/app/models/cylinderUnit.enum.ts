@@ -1,3 +1,3 @@
 export enum CylinderUnit {
-    KG, LT, M3
+    KG = 'KG', LT = 'LT', M3 = 'M3'
 }

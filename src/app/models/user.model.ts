@@ -1,9 +1,11 @@
+import { Roles } from "./roles.enum";
+
 export class User {
   constructor(
     public userName: string,
     private _authToken: string,
     private _authTokenExpDate: Date,
-    public roles: string
+    public roles: Roles
   ) { }
 
   get authToken() {

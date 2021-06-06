@@ -2,9 +2,10 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, tap } from 'rxjs/operators';
 import { BehaviorSubject, throwError } from 'rxjs';
-import { User } from './user.model';
+import { User } from '../../models/user.model';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { Roles } from 'src/app/models/roles.enum';
 
 interface AuthResponseData {
   status: string;
@@ -54,7 +55,7 @@ export class AuthService {
       userName: string,
       _authToken: string,
       _authTokenExpDate: string,
-      roles: string
+      roles: Roles
     } = JSON.parse(localStorage.getItem('userData'));
     if (!userData || !userData._authToken || !userData.userName || !userData._authTokenExpDate) {
       return;
@@ -99,8 +100,9 @@ export class AuthService {
   }
 
   private handleAuthentication(userName: string, authToken: string, expTime: number, roles: string) {
-    const authTokenExpDate = new Date(new Date().getTime() + expTime);
-    const user = new User(userName, authToken, authTokenExpDate, roles);
+    const authTokenExpDate: Date = new Date(new Date().getTime() + expTime);
+    const rolesEnum: Roles = Roles[roles];
+    const user = new User(userName, authToken, authTokenExpDate, rolesEnum);
     this.user.next(user);
     // check if token has expired
     this.autologout(expTime);

@@ -1,4 +1,4 @@
 export interface GassFamily {
-    gasFamilyId: number;
-    gasFamilyName: string;
+    gasFamilyId?: number;
+    gasFamilyName?: string;
 }
