@@ -41,6 +41,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       this.isAuthenticatedFlag = !!user;
     });
   }
+  private _mobileQueryListener: () => void;
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
@@ -54,10 +55,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   onLogout() {
-
     this.authService.logout();
   }
-  private _mobileQueryListener: () => void;
 
 
 }

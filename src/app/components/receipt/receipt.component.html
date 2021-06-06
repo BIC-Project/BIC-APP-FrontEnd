@@ -1,4 +1,13 @@
-    <nav mat-tab-nav-bar color="primary" mat-stretch-tabs mat-align-tabs="center">
-        <a mat-tab-link *ngFor="let link of links" (click)="activeLink = link" [active]="activeLink == link"> {{link}}
-        </a>
-    </nav>
+<p>
+    <mat-toolbar color="primary">
+        <span>Receipt</span>
+    </mat-toolbar>
+</p>
+<nav mat-tab-nav-bar color="primary" mat-stretch-tabs mat-align-tabs="center">
+    <a mat-tab-link (click)="activeLink = 'create'" [active]="activeLink == 'create'"> Create
+    </a>
+    <a mat-tab-link (click)="activeLink = 'edit'" [active]="activeLink == 'edit'"> Edit
+    </a>
+    <a mat-tab-link (click)="activeLink = 'history'" [active]="activeLink == 'history'"> History
+    </a>
+</nav>
